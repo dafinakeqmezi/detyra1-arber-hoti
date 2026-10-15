@@ -75,3 +75,73 @@ Për w javë: (5.93 · 10^19)^w, p.sh. për 10 javë ≈ 5.4 · 10^197.
 
 ---
 
+## 4. Search Trees
+
+### 8-Puzzle
+Gjendja: tabela 3×3 (0 = vendi bosh). Operatorët: lëvizja e vendit bosh Lart / Poshtë / Majtas / Djathtas (2-4 fëmijë). Gjendje të arritshme: 9!/2 = 181 440.
+
+```
+            1 2 3
+            4 0 6     (fillimi)
+            7 5 8
+     ┌────────┬───┴────┬────────┐
+     L        P        M        D
+   1 0 3    1 2 3    1 2 3    1 2 3
+   4 2 6    4 5 6    0 4 6    4 6 0
+   7 5 8    7 0 8    7 5 8    7 5 8
+              │
+         ┌────┼────┐
+         M    D    L (= fillimi, përsëritje, krasitet)
+       1 2 3  1 2 3
+       4 5 6  4 5 6
+       0 7 8  7 8 0   ← qëllimi
+```
+
+### Missionaries and Cannibals
+Gjendja (M, C, B): misionarët dhe kanibalët në bregun e majtë, B = anija (L/R). Fillimi (3,3,L), qëllimi (0,0,R). Veprimet: 1M, 2M, 1C, 2C, 1M1C. Krasiten gjendjet ku kanibalët janë më shumë se misionarët në një breg me misionarë, dhe gjendjet e përsëritura.
+
+```
+(3,3,L)
+ ├─ 2C → (3,1,R)
+ │        └─ 1C ← (3,2,L)
+ │                 └─ 2C → (3,0,R)
+ │                          └─ 1C ← (3,1,L)
+ │                                   └─ 2M → (1,1,R)
+ │                                            └─ 1M1C ← (2,2,L)
+ │                                                     └─ 2M → (0,2,R)
+ │                                                              └─ 1C ← (0,3,L)
+ │                                                                       └─ 2C → (0,1,R)
+ │                                                                                └─ 1C ← (0,2,L)
+ │                                                                                         └─ 2C → (0,0,R) ✓
+ ├─ 1M1C → (2,2,R)
+ │          └─ 1M ← (3,2,L) (e njëjtë si më lart)
+ ├─ 1C → (3,2,R)
+ │        └─ 1C ← (3,3,L) (përsëritje, krasitet)
+ ├─ 2M → (1,3,R) ✗ (1 misionar me 3 kanibalë, krasitet)
+ └─ 1M → (2,3,R) ✗ (krasitet)
+```
+Zgjidhja më e shkurtër: 11 kalime.
+
+### Rotating Workforce Scheduling
+Instanca e vogël: 2 punëtorë, cikël 2 javë × 7 ditë, ndërrime D (ditë), N (natë), – (pushim). Kërkesat: çdo ditë 1 D; pas N nuk lejohet D; blloqet e punës 2-5 ditë.
+
+Nyja = orar ciklik i plotësuar pjesërisht (slot pas sloti: java 1 dita 1, dita 2, …). Degëzimi: {D, N, –} për slotin e radhës. Krasitja: (a) N pas të cilit vjen D; (b) blloku i punës > 5 ose < 2 ditë; (c) dita nuk mund ta arrijë kërkesën.
+
+```
+[ ]
+ ├─ D → [D]
+ │       ├─ D → [D D]
+ │       │       ├─ D → [D D D] …
+ │       │       ├─ N → [D D N]
+ │       │       │       └─ D → [D D N D] ✗ (N → D e ndaluar)
+ │       │       └─ – → [D D –] …
+ │       ├─ N → [D N] …
+ │       └─ – → [D –] ✗ (blloku i punës 1 ditë < 2)
+ ├─ N → [N]
+ │       └─ D → [N D] ✗
+ └─ – → [–] …
+```
+
+---
+
+Literatura: Russell & Norvig, *AIMA*, kap. 3; Michalewicz & Fogel, *How to Solve It: Modern Heuristics*, kap. 1-3; Musliu, Gärtner & Slany (2002), *Efficient generation of rotating workforce schedules*, Discrete Applied Mathematics 118(1-2), doi:10.1016/S0166-218X(01)00258-X.
