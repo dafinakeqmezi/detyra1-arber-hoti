@@ -9,6 +9,7 @@ python golfers.py 20        # Social Golfers, DFS me backtracking, kufiri i koh�
 python sudoku.py            # Sudoku, BFS me backtracking, nivelet easy / medium / hard
 python sudoku.py hard       # vetëm një nivel
 python latin.py 5           # Latin Square, IDDFS me backtracking
+python search_trees.py      # Search trees: 8-Puzzle, Missionaries & Cannibals, Rotating Workforce
 ```
 
 Çdo program e kontrollon vetë zgjidhjen (funksioni `check` / `objective` duhet të japë 0 shkelje).
@@ -76,6 +77,8 @@ Për w javë: (5.93 · 10^19)^w, p.sh. për 10 javë ≈ 5.4 · 10^197.
 ---
 
 ## 4. Search Trees
+
+Pemët më poshtë gjenerohen nga programi `search_trees.py` (zgjerim nivel pas niveli; ✗ = gjendje e paligjshme e krasitur, (përsëritje) = gjendje e vizituar më parë). Ekzekuto `python search_trees.py mc` për pemën e plotë deri te qëllimi.
 
 ### 8-Puzzle
 Gjendja: tabela 3×3 (0 = vendi bosh). Operatorët: lëvizja e vendit bosh Lart / Poshtë / Majtas / Djathtas (2-4 fëmijë). Gjendje të arritshme: 9!/2 = 181 440.
